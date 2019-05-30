@@ -13,12 +13,27 @@ Widget::Widget(QWidget *parent) :
     dataBase=new unpacker(&testFile);
     dataBase->FirstSort();
 
+    numOfFFdata=0;
+    for(int i=0;i<200;i++)
+    {
+        if(!dataBase->ffblank[i].allSentence.isEmpty())
+            numOfFFdata++;
+    }
+    qDebug()<<numOfFFdata;
+
     ui->setupUi(this);
 
     clickedCounter=0;
 
-    ui->lineEdit->setReadOnly(true);
+    numOfQ=0;
+
+    cursorAns=0;
+
     ui->reminder->setHidden(true);
+    //ui->reminder->setFont();
+
+    ui->head->setText(dataBase->ffblank[numOfQ].NsensitiveTextLF);
+    ui->end->setText(dataBase->ffblank[numOfQ].NsensitiveTextRT);
 }
 
 Widget::~Widget()
@@ -29,31 +44,43 @@ Widget::~Widget()
 }
 
 void Widget::on_pushButton_clicked()
-{qDebug()<<dataBase->ffblank[0].sensitiveText.data();
-    clickedCounter++;
-    if(clickedCounter%2)
-    {
-        //输入
-        ui->lineEdit->setReadOnly(false);
-        ui->pushButton->setText("确认");
-    }
-    else if(clickedCounter)
-    {
-        ui->lineEdit->setReadOnly(true);
+{
+
+
         //确认输入完成
         QString answer=ui->lineEdit->text();
-        if(answer==dataBase->ffblank[0].sensitiveText)
+        qDebug()<<dataBase->ffblank[cursorAns].sensitiveText.data();
+        if(answer==dataBase->ffblank[cursorAns].sensitiveText)
         {
            ui->reminder->setHidden(false);
            ui->reminder->setText("correct!");
+
+           if(numOfQ<numOfFFdata-1)
+               numOfQ++;
+           else
+               numOfQ=0;
+           switchQ();
+           if(cursorAns<numOfFFdata-1)
+           cursorAns++;
+           else
+               cursorAns=0;
+           ui->lineEdit->clear();
         }
 
         else
         {
             ui->reminder->setHidden(false);
-            ui->reminder->setText("wrong!,正确答案是：帝国主义和无产阶级革命");
+            ui->reminder->setText("wrong!");
 
         }
         ui->pushButton->setText("点击输入");
-    }
+
+
+}
+
+
+void Widget::switchQ()
+{
+    ui->head->setText(dataBase->ffblank[numOfQ].NsensitiveTextLF);
+    ui->end->setText(dataBase->ffblank[numOfQ].NsensitiveTextRT);
 }

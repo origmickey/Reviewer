@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "unpacker.h"
+#include "QThread"
 namespace Ui {
 class Widget;
 }
@@ -20,12 +21,23 @@ private slots:
 
     void on_pushButton_clicked();
 
+
+
+    void switchQ(void);
+
 private:
     Ui::Widget *ui;
 
     int clickedCounter;
 
     unpacker * dataBase;
+
+    int numOfQ;
+
+    int numOfFFdata;
+    int numOfBPdata;
+
+    int cursorAns;
 };
 
 #endif // WIDGET_H

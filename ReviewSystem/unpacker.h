@@ -22,7 +22,7 @@ typedef struct FFRYdata{
 typedef struct BPRYdata{
     QByteArray allSentence;
     QByteArray HEAD;
-    QByteArray point[6];
+    QByteArray point[10];
 }BPRY;
 
 class unpacker
@@ -43,10 +43,15 @@ public:
     //BPRY pointQ(QByteArray SecSortedData);
     BPRY pointQ(QByteArray SecSortedData);
     QFile *file;
-
+    int lenOfFF;
+    int lenOfBP;
+    int numOfPoint;
 //    FFRY * ffblank;
-    FFRY  ffblank[5];
-    BPRY  bpQues;
+    FFRY  ffblank[200];
+    BPRY  bpQues[50];
+
+    int FORsignNUM;
+    int SORsignNUM;
 
 };
 

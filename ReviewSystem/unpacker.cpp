@@ -9,10 +9,16 @@ unpacker::unpacker(QFile * qbank)
 {
     //len=0;
     //ffblank=new FFRY[len];
+    lenOfBP=0;
+    lenOfFF=0;
+    numOfPoint=0;
+    FORsignNUM=0;
+    SORsignNUM=0;
+
     file=qbank;
     file->open(QIODevice::ReadWrite| QIODevice::Text);
-    //qDebug()<<file->readAll().data();
-    //qDebug()<<"file text";
+    qDebug()<<file->readAll().data();
+    qDebug()<<"file text";
     file->close();
 }
 
@@ -68,7 +74,6 @@ unpacker::FirstSort()
     QByteArray reader=file->readAll();
 
 
-
     QByteArray MAOdata = Intercept(reader,"MAO","MAO").goalData;
     //qDebug()<<MAOdata.data()<<"withoutMAO";
     SeccondSort(MAOdata);
@@ -78,106 +83,42 @@ unpacker::FirstSort()
 
 unpacker::SeccondSort(QByteArray resorteddata)
 {
-    xResult oneResult=Intercept(resorteddata,"ONE","ONE");
-
-    QByteArray firstofM=oneResult.goalData;
-
-    //qDebug()<<firstofM.data()<<"first";
-
-    if(firstofM.indexOf("SENSI")!=(-1)&&firstofM.indexOf("TIVE")!=(-1))
+    //test area
+    QByteArray restData=resorteddata;
+    while(restData.indexOf("FOR")!=(-1))
     {
-        FFRY FFresult =sensitiveSort(firstofM);
-        if(!FFresult.allSentence.isEmpty())
-            ffblank[0]=FFresult;
-    }
-    if(firstofM.indexOf("YI")!=(-1))
-        bpQues= pointQ(firstofM);
+        QByteArray FORsign="FOR";
+                        FORsign.insert(FORsign.length(),QString("%1")
+                                         .arg(FORsignNUM));
+        qDebug()<< FORsign;
+      xResult Result=Intercept(restData,FORsign,FORsign);
 
 
+      QByteArray FORgoal=Result.goalData;
 
-    QByteArray twoRowData=oneResult.leftdata;
+      if(FORgoal.indexOf("SENSI")!=(-1)&&FORgoal.indexOf("TIVE")!=(-1))
+      {
+          FFRY FFresult =sensitiveSort(FORgoal);
+          if(!FFresult.allSentence.isEmpty())
+          {
+             ffblank[lenOfFF]=FFresult;
+             lenOfFF++;
+          }
 
+      }
+      if(FORgoal.indexOf("SOR")!=(-1))
+      {
+          bpQues[lenOfBP]= pointQ(FORgoal);
+          lenOfBP++;
+      }
 
+      FORsignNUM++;
 
-    xResult twoResult=Intercept(twoRowData,"TWO","TWO");
+      restData=Result.leftdata;
 
-    QByteArray secondtofM=twoResult.goalData;
-
-    //qDebug()<<secondtofM.data()<<"second";
-
-    //qDebug()<<secondtofM.indexOf("SENSI");
-
-    if(secondtofM.indexOf("SENSI")!=(-1)&&secondtofM.indexOf("TIVE")!=(-1))
-    {
-        FFRY FFresult =sensitiveSort(secondtofM);
-        //qDebug()<<"FFresult.allSentence.data()";
-        if(!FFresult.allSentence.isEmpty())
-            ffblank[1]=FFresult;
     }
 
-    if(secondtofM.indexOf("YI")!=(-1))
-        bpQues= pointQ(secondtofM);
-
-    QByteArray threeRowData=twoResult.leftdata;
-
-
-
-    xResult threeResult=Intercept(threeRowData,"THREE","THREE");
-
-    QByteArray thirdtofM=threeResult.goalData;
-
-    //qDebug()<<thirdtofM.data()<<"third";
-
-    if(thirdtofM.indexOf("SENSI")!=(-1)&&thirdtofM.indexOf("TIVE")!=(-1))
-    {
-        FFRY FFresult =sensitiveSort(thirdtofM);
-        if(!FFresult.allSentence.isEmpty())
-            ffblank[2]=FFresult;
-    }
-
-    if(thirdtofM.indexOf("YI")!=(-1))
-        bpQues= pointQ(thirdtofM);
-
-    QByteArray fourRowData=threeResult.leftdata;
-
-
-
-    xResult fourResult=Intercept(fourRowData,"FOUR","FOUR");
-
-    QByteArray fourthtofM=fourResult.goalData;
-
-    //qDebug()<<fourthtofM.data()<<"fourth";
-
-    if(fourthtofM.indexOf("SENSI")!=(-1)&&fourthtofM.indexOf("TIVE")!=(-1))
-    {
-        FFRY FFresult =sensitiveSort(fourthtofM);
-        if(!FFresult.allSentence.isEmpty())
-            ffblank[3]=FFresult;
-    }
-    if(fourthtofM.indexOf("YI")!=(-1))
-        bpQues= pointQ(fourthtofM);
-
-
-    QByteArray fiveRowData=fourResult.leftdata;
-
-
-
-    xResult fiveResult=Intercept(fiveRowData,"FIVE","FIVE");
-
-    QByteArray fivethtofM=fiveResult.goalData;
-
-
-    //qDebug()<<fivethtofM.data()<<"five";
-
-    if(fivethtofM.indexOf("SENSI")!=(-1)&&fivethtofM.indexOf("TIVE")!=(-1))
-    {
-        FFRY FFresult =sensitiveSort(fivethtofM);
-        if(!FFresult.allSentence.isEmpty())
-            ffblank[4]=FFresult;
-    }
-    if(fivethtofM.indexOf("YI")!=(-1))
-        bpQues= pointQ(fivethtofM);
-
+    //test area
 }
 
 FFRY unpacker::sensitiveSort(QByteArray NSTSdata)
@@ -209,56 +150,37 @@ FFRY unpacker::sensitiveSort(QByteArray NSTSdata)
 
  BPRY unpacker::pointQ(QByteArray SecSortedData)
 {
+
     BPRY rowBP;
 
-    QByteArray head=SecSortedData.left(SecSortedData.indexOf("YI"));
+    QByteArray restData=SecSortedData;
+
+    QByteArray head=SecSortedData.left(SecSortedData.indexOf("SOR0"));
     rowBP.HEAD=head;
 
-    xResult yiResult=Intercept(SecSortedData,"YI","YI");
+    //test area
+    while(restData.indexOf("SOR")!=(-1))
+    {
+        QByteArray SORsign="SOR";
+                        SORsign.insert(SORsign.length(),QString("%1")
+                                         .arg(SORsignNUM));
+        qDebug()<< SORsign;
 
-    QByteArray firstPoint=yiResult.goalData;
-    rowBP.point[0]=firstPoint;
+        xResult sorResult=Intercept(restData,SORsign,SORsign);
 
-    QByteArray erRowData=yiResult.leftdata;
+        QByteArray GOALinPoint=sorResult.goalData;
+        rowBP.point[numOfPoint]=GOALinPoint;
 
+        numOfPoint++;
+        SORsignNUM++;
 
-
-    xResult erResult=Intercept(erRowData,"ER","ER");
-
-    QByteArray secondPoint=erResult.goalData;
-    rowBP.point[1]=secondPoint;
-
-    QByteArray sanRowData=erResult.leftdata;
-
-
-    xResult sanResult=Intercept(sanRowData,"SAN","SAN");
-
-    QByteArray thirdPoint=sanResult.goalData;
-    rowBP.point[2]=thirdPoint;
-
-    QByteArray siRowData=sanResult.leftdata;
+        restData=sorResult.leftdata;
+    }
+    for(int i=0;i<numOfPoint;i++)
+    qDebug()<<rowBP.point[i].data();
+    //test area
 
 
-    xResult siResult=Intercept(siRowData,"SI","SI");
-
-    QByteArray fourthPoint=siResult.goalData;
-    rowBP.point[3]=fourthPoint;
-
-    QByteArray wuRowData=siResult.leftdata;
-
-
-    xResult wuResult=Intercept(wuRowData,"WU","WU");
-
-    QByteArray fifthPoint=wuResult.goalData;
-    rowBP.point[4]=fifthPoint;
-
-    QByteArray liuRowData=wuResult.leftdata;
-
-    xResult liuResult=Intercept(liuRowData,"LIU","LIU");
-
-    QByteArray sixthPoint=liuResult.goalData;
-    rowBP.point[5]=sixthPoint;
-
-
+    numOfPoint=0;
     return rowBP;
 }
