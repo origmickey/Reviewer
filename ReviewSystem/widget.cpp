@@ -142,7 +142,7 @@ Widget::Widget(QWidget *parent) :
     }
 
     //qDebug()<<numofBPdata<<"题目数量";
-    qDebug()<<zone.data()<<"题目数量";
+    //qDebug()<<zone.data()<<"题目数量";
 
 
     if(testFile.isOpen())
@@ -163,7 +163,7 @@ void Widget::on_pushButton_clicked()
 
         //确认输入完成
         QString answer=ui->lineEdit->text();
-        //qDebug()<<dataBase->ffblank[cursorAns].sensitiveText.data();
+        qDebug()<<dataBase->ffblank[cursorAns].sensitiveText.data();
         if(answer==dataBase->ffblank[cursorAns].sensitiveText)
         {
            ui->reminder->setHidden(false);
@@ -227,6 +227,7 @@ void Widget::on_pushButton_2_clicked()
 
     if(!showJudge)
     {
+        ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
         for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
         {
             bpline[i].show();
@@ -234,13 +235,14 @@ void Widget::on_pushButton_2_clicked()
             bplabel[i].show();
         }
         showJudge=1;
+
     }
     //qDebug()<<"答案";
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-    //qDebug()<<dataBase->bpQues[cursorofBP].point[i].data();
+    qDebug()<<dataBase->bpQues[cursorofBP].point[i].data();
     //qDebug()<<"答案";
 
-    ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
+
     int judge=0;
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
     {
@@ -262,7 +264,7 @@ void Widget::on_pushButton_2_clicked()
         else
             cursorofBP=0;
 
-
+        ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
 
         for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
         {
