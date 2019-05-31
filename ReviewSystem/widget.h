@@ -4,6 +4,13 @@
 #include <QWidget>
 #include "unpacker.h"
 #include "QThread"
+#include "QLineEdit"
+#include "QLabel"
+
+typedef struct pointinfo{
+    int pointofQ;
+}Pinfo;
+
 namespace Ui {
 class Widget;
 }
@@ -15,6 +22,8 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
+    QFile  testFile;
+
 
 private slots:
 
@@ -24,6 +33,8 @@ private slots:
 
 
     void switchQ(void);
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::Widget *ui;
@@ -35,9 +46,26 @@ private:
     int numOfQ;
 
     int numOfFFdata;
-    int numOfBPdata;
 
     int cursorAns;
+
+    int numofBPdata;
+
+    Pinfo BPinfo[50];
+
+    int cursorofBP;
+
+    QLineEdit bpline[10];
+
+    QLabel    bplabel[10];
+
+    int showJudge;
+
+
+
+
+
+
 };
 
 #endif // WIDGET_H

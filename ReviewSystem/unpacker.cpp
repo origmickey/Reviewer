@@ -5,27 +5,29 @@
 //    QByteArray leftdata;
 //}xResult;
 
-unpacker::unpacker(QFile * qbank)
+unpacker::unpacker(QByteArray qbank)
 {
     //len=0;
     //ffblank=new FFRY[len];
+    debugNUM=0;
     lenOfBP=0;
     lenOfFF=0;
     numOfPoint=0;
     FORsignNUM=0;
     SORsignNUM=0;
-
-    file=qbank;
-    file->open(QIODevice::ReadWrite| QIODevice::Text);
-    qDebug()<<file->readAll().data();
-    qDebug()<<"file text";
-    file->close();
+    //file=new QFile;
+    /*qbank.open(QIODevice::ReadWrite| QIODevice::Text)*/;
+    stack= qbank;
+    //qDebug()<<stack.data();
+    //qDebug()<<"file text";
+//    qbank.close();
 }
 
 unpacker::~unpacker()
 {
     //delete ffblank;
-    file->close();
+
+    //delete file;
 }
 
 xResult unpacker::Intercept(QByteArray rowdata,QString cutter1,QString cutter2)
@@ -67,11 +69,10 @@ xResult unpacker::Intercept(QByteArray rowdata,QString cutter1,QString cutter2)
     return result;
 }
 
-unpacker::FirstSort()
+void unpacker::FirstSort()
 {
-    if(!file->isOpen())
-        file->open(QIODevice::ReadWrite| QIODevice::Text);
-    QByteArray reader=file->readAll();
+
+    QByteArray reader=stack;
 
 
     QByteArray MAOdata = Intercept(reader,"MAO","MAO").goalData;
@@ -81,8 +82,21 @@ unpacker::FirstSort()
 
 }
 
-unpacker::SeccondSort(QByteArray resorteddata)
+void unpacker::SeccondSort(QByteArray resorteddata)
 {
+//    QByteArray ALLSIGN;
+//    for(int FORsignNUM=31;FORsignNUM<70;FORsignNUM++)
+//    {
+//        QByteArray sign="FOR FOR";
+//                        sign.insert(sign.length(),QString("%1")
+//                                         .arg(FORsignNUM));
+//                        sign.insert(3,QString("%1")
+//                                    .arg(FORsignNUM));
+//                        //qDebug()<<sign;
+//                        ALLSIGN.append(sign);
+//    }
+//    qDebug()<<ALLSIGN;
+
     //test area
     QByteArray restData=resorteddata;
     while(restData.indexOf("FOR")!=(-1))
@@ -90,7 +104,7 @@ unpacker::SeccondSort(QByteArray resorteddata)
         QByteArray FORsign="FOR";
                         FORsign.insert(FORsign.length(),QString("%1")
                                          .arg(FORsignNUM));
-        qDebug()<< FORsign;
+        //qDebug()<< FORsign;
       xResult Result=Intercept(restData,FORsign,FORsign);
 
 
@@ -164,23 +178,27 @@ FFRY unpacker::sensitiveSort(QByteArray NSTSdata)
         QByteArray SORsign="SOR";
                         SORsign.insert(SORsign.length(),QString("%1")
                                          .arg(SORsignNUM));
-        qDebug()<< SORsign;
+        //qDebug()<< SORsign;
 
         xResult sorResult=Intercept(restData,SORsign,SORsign);
 
         QByteArray GOALinPoint=sorResult.goalData;
+        //qDebug()<<"begin";
+        //qDebug()<<"end";
         rowBP.point[numOfPoint]=GOALinPoint;
 
+        //qDebug()<<debugNUM;
+        debugNUM++;
         numOfPoint++;
         SORsignNUM++;
 
         restData=sorResult.leftdata;
     }
     for(int i=0;i<numOfPoint;i++)
-    qDebug()<<rowBP.point[i].data();
+    //qDebug()<<rowBP.point[i].data();
     //test area
 
-
+    SORsignNUM=0;
     numOfPoint=0;
     return rowBP;
 }

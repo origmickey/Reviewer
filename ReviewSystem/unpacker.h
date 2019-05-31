@@ -28,21 +28,21 @@ typedef struct BPRYdata{
 class unpacker
 {
 public:
-    unpacker(QFile * qbank);
+    unpacker(QByteArray qbank);
     ~unpacker();
 
 
     xResult Intercept(QByteArray rowdata, QString cutter, QString cutter2);
 
-    FirstSort(void);
+    void FirstSort(void);
 
-    SeccondSort(QByteArray resorteddata);
+    void SeccondSort(QByteArray resorteddata);
 
     FFRY sensitiveSort(QByteArray NSTSdata);
 
     //BPRY pointQ(QByteArray SecSortedData);
     BPRY pointQ(QByteArray SecSortedData);
-    QFile *file;
+    QFile file;
     int lenOfFF;
     int lenOfBP;
     int numOfPoint;
@@ -52,6 +52,10 @@ public:
 
     int FORsignNUM;
     int SORsignNUM;
+
+    int debugNUM;
+
+    QByteArray stack;
 
 };
 

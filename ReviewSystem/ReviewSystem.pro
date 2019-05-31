@@ -20,3 +20,8 @@ HEADERS  += widget.h \
     unpacker.h
 
 FORMS    += widget.ui
+
+DISTFILES += \
+    Qbank
+
+
