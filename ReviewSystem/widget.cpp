@@ -10,7 +10,7 @@ Widget::Widget(QWidget *parent) :
 
 
     //testFile.setFileName("C:/Users/k/Desktop/qbank");
-    testFile.setFileName("D:/WORK/QT/ReviewSystem/Reviewer/ReviewSystem/Qbank");
+    testFile.setFileName("C:/Users/k/Desktop/qbank");
     testFile.open(QIODevice::ReadWrite| QIODevice::Text);
     QByteArray zone=testFile.readAll();
 

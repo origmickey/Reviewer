@@ -19,6 +19,8 @@ unpacker::unpacker(QByteArray qbank)
     /*qbank.open(QIODevice::ReadWrite| QIODevice::Text)*/;
     stack= qbank;
     qDebug()<<stack.data();
+    while(stack.indexOf("\n")!=(-1))
+    stack=stack.remove(stack.indexOf("\n"),1);
     //qDebug()<<"file text";
 //    qbank.close();
 }
