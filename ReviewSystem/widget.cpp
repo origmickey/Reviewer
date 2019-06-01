@@ -19,12 +19,13 @@ Widget::Widget(QWidget *parent) :
 
    cursorofBP=0;
 
-    numOfFFdata=0;
-    for(int i=0;i<200;i++)
-    {
-        if(!dataBase->ffblank[i].allSentence.isEmpty())
-            numOfFFdata++;
-    }
+    numOfFFdata=dataBase->ffblank.length();
+//    for(int i=0;i<200;i++)
+//    {
+//        if(!dataBase->ffblank[i].allSentence.isEmpty())
+//            numOfFFdata++;
+//    }
+
     //qDebug()<<numOfFFdata;
 
 
@@ -124,22 +125,27 @@ Widget::Widget(QWidget *parent) :
     bplabel[9].setHidden(true);
 
 
-    numofBPdata=0;
-    for(int i=0;i<50;i++)
-    {
-        BPinfo[i].pointofQ=0;
+//    numofBPdata=0;
+      numofBPdata=dataBase->bpQues.length();
 
-        for(int j=0;j<10;j++)
-        {
-            if(!dataBase->bpQues[i].point[j].isEmpty())
-                BPinfo[i].pointofQ++;
-        }
+//    for(int i=0;i<50;i++)
+//    {
+//        BPinfo[i].pointofQ=0;
 
-        //qDebug()<<BPinfo[i].pointofQ<<"分点数量";
+//        for(int j=0;j<10;j++)
+//        {
+//            if(!dataBase->bpQues[i].point[j].isEmpty())
+//                BPinfo[i].pointofQ++;
+//        }
 
-        if(BPinfo[i].pointofQ)
-            numofBPdata++;
-    }
+//        //qDebug()<<BPinfo[i].pointofQ<<"分点数量";
+
+//        if(BPinfo[i].pointofQ)
+//            numofBPdata++;
+//    }
+
+      for(int i=0;i<numofBPdata;i++)
+          BPinfo[i].pointofQ=dataBase->bpQues.at(i).point.length();
 
     //qDebug()<<numofBPdata<<"题目数量";
     //qDebug()<<zone.data()<<"题目数量";

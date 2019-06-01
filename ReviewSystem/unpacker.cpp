@@ -18,7 +18,7 @@ unpacker::unpacker(QByteArray qbank)
     //file=new QFile;
     /*qbank.open(QIODevice::ReadWrite| QIODevice::Text)*/;
     stack= qbank;
-    //qDebug()<<stack.data();
+    qDebug()<<stack.data();
     //qDebug()<<"file text";
 //    qbank.close();
 }
@@ -115,15 +115,17 @@ void unpacker::SeccondSort(QByteArray resorteddata)
           FFRY FFresult =sensitiveSort(FORgoal);
           if(!FFresult.allSentence.isEmpty())
           {
-             ffblank[lenOfFF]=FFresult;
-             lenOfFF++;
+//             ffblank[lenOfFF]=FFresult;
+//             lenOfFF++;
+              ffblank.append(FFresult);
           }
 
       }
       if(FORgoal.indexOf("SOR")!=(-1))
       {
-          bpQues[lenOfBP]= pointQ(FORgoal);
-          lenOfBP++;
+//          bpQues[lenOfBP]= pointQ(FORgoal);
+//          lenOfBP++;
+          bpQues.append(pointQ(FORgoal));
       }
 
       FORsignNUM++;
@@ -185,7 +187,8 @@ FFRY unpacker::sensitiveSort(QByteArray NSTSdata)
         QByteArray GOALinPoint=sorResult.goalData;
         //qDebug()<<"begin";
         //qDebug()<<"end";
-        rowBP.point[numOfPoint]=GOALinPoint;
+//        rowBP.point[numOfPoint]=GOALinPoint;
+        rowBP.point.append(GOALinPoint);
 
         //qDebug()<<debugNUM;
         debugNUM++;

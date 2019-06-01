@@ -3,6 +3,7 @@
 //调用填空题使用结构体数组ffblank,一个元素为一题
 #include <QFile>
 #include "qdebug.h"
+#include "qlist.h"
 
 typedef struct data{
     QByteArray goalData;
@@ -22,7 +23,8 @@ typedef struct FFRYdata{
 typedef struct BPRYdata{
     QByteArray allSentence;
     QByteArray HEAD;
-    QByteArray point[10];
+    QList<QByteArray> point;
+    //QByteArray point[10];
 }BPRY;
 
 class unpacker
@@ -47,8 +49,11 @@ public:
     int lenOfBP;
     int numOfPoint;
 //    FFRY * ffblank;
-    FFRY  ffblank[200];
-    BPRY  bpQues[50];
+    QList<FFRY> ffblank;
+    QList<BPRY> bpQues;
+
+//    FFRY  ffblank[200];
+//    BPRY  bpQues[50];
 
     int FORsignNUM;
     int SORsignNUM;
