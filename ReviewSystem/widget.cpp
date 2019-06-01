@@ -9,40 +9,27 @@ Widget::Widget(QWidget *parent) :
     showJudge=0;
 
 
-    testFile.setFileName("C:/Users/k/Desktop/qbank");
+    //testFile.setFileName("C:/Users/k/Desktop/qbank");
+    testFile.setFileName("D:/WORK/QT/ReviewSystem/Reviewer/ReviewSystem/Qbank");
     testFile.open(QIODevice::ReadWrite| QIODevice::Text);
     QByteArray zone=testFile.readAll();
 
     dataBase=new unpacker(zone);
     dataBase->FirstSort();
 
-
-   cursorofBP=0;
+    cursorofBP=-1;
 
     numOfFFdata=dataBase->ffblank.length();
-//    for(int i=0;i<200;i++)
-//    {
-//        if(!dataBase->ffblank[i].allSentence.isEmpty())
-//            numOfFFdata++;
-//    }
-
-    //qDebug()<<numOfFFdata;
-
 
     ui->setupUi(this);
 
     clickedCounter=0;
 
-    numOfQ=0;
+    numOfQ=-1;
 
-    cursorAns=0;
+    cursorAns=-1;
 
     ui->reminder->setHidden(true);
-    //ui->reminder->setFont();
-
-
-    ui->head->setText(dataBase->ffblank[numOfQ].NsensitiveTextLF);
-    ui->end->setText(dataBase->ffblank[numOfQ].NsensitiveTextRT);
 
     bpline[0].setParent(this);
     bpline[1].setParent(this);
@@ -67,7 +54,6 @@ Widget::Widget(QWidget *parent) :
     bplabel[9].setParent(this);
 
 
-
     for(int i=0;i<10;i++)
     {
          QByteArray numberOflabel="";
@@ -76,31 +62,39 @@ Widget::Widget(QWidget *parent) :
       bplabel[i].setText(numberOflabel);
     }
 
+    bpline_x = 250;
+    bpline_y = 370;
+    bpline_w = 200;
+    bpline_h = 50;
 
+    bplabel_x = bpline_x -20;
+    bplabel_y = bpline_y;
+    bplabel_w = 30;
+    bplabel_h = bpline_h;
 
-    bpline[0].setGeometry(300,370,113,21);
-    bpline[1].setGeometry(299,400,113,21);
-    bpline[2].setGeometry(299,440,113,21);
-    bpline[3].setGeometry(299,470,113,21);
-    bpline[4].setGeometry(300,510,113,21);
-    bpline[5].setGeometry(540,370,113,21);
-    bpline[6].setGeometry(539,400,113,21);
-    bpline[7].setGeometry(539,440,113,21);
-    bpline[8].setGeometry(539,470,113,21);
-    bpline[9].setGeometry(539,510,113,21);
+    bpline[0].setGeometry(bpline_x, bpline_y, bpline_w, bpline_h);
+    bpline[1].setGeometry(bpline_x, bpline_y + 10 + bpline_h, bpline_w, bpline_h);
+    bpline[2].setGeometry(bpline_x, bpline_y + (10 + bpline_h)*2, bpline_w, bpline_h);
+    bpline[3].setGeometry(bpline_x, bpline_y + (10 + bpline_h)*3, bpline_w, bpline_h);
+    bpline[4].setGeometry(bpline_x, bpline_y + (10 + bpline_h)*4, bpline_w, bpline_h);
+    bpline[5].setGeometry(bpline_x + 300, bpline_y, bpline_w, bpline_h);
+    bpline[6].setGeometry(bpline_x + 300, bpline_y + 10 + bpline_h, bpline_w, bpline_h);
+    bpline[7].setGeometry(bpline_x + 300, bpline_y + (10 + bpline_h)*2, bpline_w, bpline_h);
+    bpline[8].setGeometry(bpline_x + 300, bpline_y + (10 + bpline_h)*3, bpline_w, bpline_h);
+    bpline[9].setGeometry(bpline_x + 300, bpline_y + (10 + bpline_h)*4, bpline_w, bpline_h);
 
     //修改位置和大小
 
-    bplabel[0].setGeometry(231,370,61,20);
-    bplabel[1].setGeometry(230,400,61,20);
-    bplabel[2].setGeometry(230,440,61,20);
-    bplabel[3].setGeometry(230,470,61,20);
-    bplabel[4].setGeometry(230,510,61,20);
-    bplabel[5].setGeometry(471,370,61,20);
-    bplabel[6].setGeometry(470,400,61,20);
-    bplabel[7].setGeometry(470,440,61,20);
-    bplabel[8].setGeometry(470,470,61,20);
-    bplabel[9].setGeometry(470,510,61,20);
+    bplabel[0].setGeometry(bplabel_x, bpline_y, bplabel_w, 20);
+    bplabel[1].setGeometry(bplabel_x, bpline_y + 10 + bplabel_h, bplabel_w, bpline_h);
+    bplabel[2].setGeometry(bplabel_x, bpline_y + (10 + bplabel_h)*2, bplabel_w, bpline_h);
+    bplabel[3].setGeometry(bplabel_x, bpline_y + (10 + bplabel_h)*3, bplabel_w, bpline_h);
+    bplabel[4].setGeometry(bplabel_x, bpline_y + (10 + bplabel_h)*4, bplabel_w, bpline_h);
+    bplabel[5].setGeometry(bplabel_x + 300, bpline_y, bplabel_w, bpline_h);
+    bplabel[6].setGeometry(bplabel_x + 300, bpline_y + 10 + bplabel_h, bplabel_w, bpline_h);
+    bplabel[7].setGeometry(bplabel_x + 300, bpline_y + (10 + bplabel_h)*2, bplabel_w, bpline_h);
+    bplabel[8].setGeometry(bplabel_x + 300, bpline_y + (10 + bplabel_h)*3, bplabel_w, bpline_h);
+    bplabel[9].setGeometry(bplabel_x + 300, bpline_y + (10 + bplabel_h)*4, bplabel_w, bpline_h);
 
     bpline[0].setHidden(true);
     bpline[1].setHidden(true);
@@ -163,8 +157,10 @@ Widget::~Widget()
 
 }
 
-void Widget::on_pushButton_clicked()
+void Widget::on_checkFFQuestionButton_clicked()
 {
+    if(cursorAns != -1 && numOfQ != -1)
+    {
 
 
         //确认输入完成
@@ -172,19 +168,11 @@ void Widget::on_pushButton_clicked()
         qDebug()<<dataBase->ffblank[cursorAns].sensitiveText.data();
         if(answer==dataBase->ffblank[cursorAns].sensitiveText)
         {
+
            ui->reminder->setHidden(false);
            ui->reminder->setText("correct!");
 
-           if(numOfQ<numOfFFdata-1)
-               numOfQ++;
-           else
-               numOfQ=0;
-           switchQ();
-           if(cursorAns<numOfFFdata-1)
-           cursorAns++;
-           else
-               cursorAns=0;
-           ui->lineEdit->clear();
+
         }
 
         else
@@ -193,20 +181,84 @@ void Widget::on_pushButton_clicked()
             ui->reminder->setText("wrong!");
 
         }
-        ui->pushButton->setText("点击输入");
+        ui->checkFFQuestionButton->setText("检查");
+
+    }
 
 
 }
 
 
-void Widget::switchQ()
+
+void Widget::on_nextFFQuestionButton_clicked()
 {
-    ui->head->setText(dataBase->ffblank[numOfQ].NsensitiveTextLF);
-    ui->end->setText(dataBase->ffblank[numOfQ].NsensitiveTextRT);
+    Jump2NextQuestion();
 }
 
-void Widget::on_pushButton_2_clicked()
+void Widget::Jump2NextQuestion()
 {
+    if(numOfQ<numOfFFdata-1)
+        numOfQ++;
+    else
+        numOfQ=0;
+    if(cursorAns<numOfFFdata-1)
+        cursorAns++;
+    else
+        cursorAns=0;
+    s_question = dataBase->ffblank[numOfQ].NsensitiveTextLF + "__________________" + dataBase->ffblank[numOfQ].NsensitiveTextRT;
+    ui->ffquestionBrowser->setText(s_question);
+
+    ui->lineEdit->clear();
+}
+
+void Widget::on_checkBPQuestionButton_clicked()
+{
+
+    if(cursorofBP != -1)
+    {
+        int judge=0;
+        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
+        {
+            if(bpline[i].text()==dataBase->bpQues[cursorofBP].point[i])
+            judge++;
+        }
+        if(judge==BPinfo[cursorofBP].pointofQ)
+
+        {
+            ui->reminderBP->setText("correct!");
+        }
+
+        else
+        {
+            ui->reminderBP->setText("wrong!");
+        }
+
+
+    }
+
+
+}
+
+void Widget::on_nextBPQuestionButton_clicked()
+{
+    if(cursorofBP != -1)
+    {
+        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
+        {
+            bpline[i].clear();
+        }
+
+    }
+
+    if(cursorofBP<numofBPdata-1)
+        cursorofBP++;
+    else
+        cursorofBP=0;
+
+
+    //ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
+    ui->bqquestionBrowser->setText(dataBase->bpQues[cursorofBP].HEAD);
+
     bpline[0].setHidden(true);
     bpline[1].setHidden(true);
     bpline[2].setHidden(true);
@@ -229,68 +281,15 @@ void Widget::on_pushButton_2_clicked()
     bplabel[8].setHidden(true);
     bplabel[9].setHidden(true);
 
-    ui->pushButton_2->setText("确认输入");
 
-    if(!showJudge)
-    {
-        ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
-        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-        {
-            bpline[i].show();
-            //qDebug()<<"i am in here";
-            bplabel[i].show();
-        }
-        showJudge=1;
-
-    }
     //qDebug()<<"答案";
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-    qDebug()<<dataBase->bpQues[cursorofBP].point[i].data();
-    //qDebug()<<"答案";
+        qDebug()<<dataBase->bpQues[cursorofBP].point[i].data();
 
-
-    int judge=0;
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
     {
-        if(bpline[i].text()==dataBase->bpQues[cursorofBP].point[i])
-            judge++;
+        bpline[i].show();
+        bplabel[i].show();
     }
-    if(judge==BPinfo[cursorofBP].pointofQ)
-
-    {
-        ui->reminderBP->setText("correct!");
-
-        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-        {
-            bpline[i].clear();
-        }
-
-        if(cursorofBP<numofBPdata-1)
-            cursorofBP++;
-        else
-            cursorofBP=0;
-
-        ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
-
-        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-        {
-            bpline[i].show();
-            bplabel[i].show();
-        }
-
-
-    }
-
-    else
-    {
-        for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
-        {
-            bpline[i].show();
-            bplabel[i].show();
-        }
-
-        ui->reminderBP->setText("wrong!");
-    }
-
 
 }

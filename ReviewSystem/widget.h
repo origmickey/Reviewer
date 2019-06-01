@@ -28,13 +28,13 @@ public:
 private slots:
 
 
-    void on_pushButton_clicked();
+    void on_checkFFQuestionButton_clicked();
 
+    void on_nextFFQuestionButton_clicked();
 
+    void on_checkBPQuestionButton_clicked();
 
-    void switchQ(void);
-
-    void on_pushButton_2_clicked();
+    void on_nextBPQuestionButton_clicked();
 
 private:
     Ui::Widget *ui;
@@ -60,6 +60,21 @@ private:
     QLabel    bplabel[10];
 
     int showJudge;
+
+    QString s_question;
+
+    int bpline_x;
+    int bpline_y;
+    int bpline_w;
+    int bpline_h;
+
+    int bplabel_x;
+    int bplabel_y;
+    int bplabel_w;
+    int bplabel_h;
+
+
+    void Jump2NextQuestion();
 
 
 

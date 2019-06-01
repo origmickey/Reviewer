@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="checkFFQuestionButton">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>140</y>
+     <x>760</x>
+     <y>40</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -29,10 +29,10 @@
   <widget class="QLabel" name="reminder">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>180</y>
-     <width>621</width>
-     <height>91</height>
+     <x>660</x>
+     <y>130</y>
+     <width>241</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
@@ -48,49 +48,23 @@
   <widget class="QLabel" name="FFQ">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>80</y>
-     <width>41</width>
-     <height>16</height>
+     <x>90</x>
+     <y>30</y>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>填空题</string>
    </property>
   </widget>
-  <widget class="QLabel" name="Qhead">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>300</y>
-     <width>601</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>310</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>分点作答题目</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="reminderBP">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>600</y>
-     <width>431</width>
-     <height>51</height>
+     <x>100</x>
+     <y>560</y>
+     <width>341</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -103,33 +77,72 @@
     <string/>
    </property>
   </widget>
-  <widget class="QTextEdit" name="head">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>20</y>
-     <width>471</width>
-     <height>101</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="end">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>20</y>
-     <width>291</width>
-     <height>101</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>612</x>
-     <y>20</y>
-     <width>211</width>
+     <x>190</x>
+     <y>140</y>
+     <width>431</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nextFFQuestionButton">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>80</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下一题</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="ffquestionBrowser">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>30</y>
+     <width>431</width>
      <height>101</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="checkBPQuestionButton">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>360</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>检查</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nextBPQuestionButton">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>410</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下一题</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="bqquestionBrowser">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>260</y>
+     <width>461</width>
+     <height>71</height>
     </rect>
    </property>
   </widget>
