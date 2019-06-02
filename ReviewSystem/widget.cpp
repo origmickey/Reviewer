@@ -241,6 +241,7 @@ void Widget::on_checkBPQuestionButton_clicked()
 
 void Widget::on_nextBPQuestionButton_clicked()
 {
+    qDebug()<<"1";
     if(cursorofBP != -1)
     {
         for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
@@ -249,15 +250,17 @@ void Widget::on_nextBPQuestionButton_clicked()
         }
 
     }
-
+     qDebug()<<"1";
     if(cursorofBP<numofBPdata-1)
         cursorofBP++;
     else
         cursorofBP=0;
 
-
+     qDebug()<<"2";
     //ui->Qhead->setText(dataBase->bpQues[cursorofBP].HEAD);
     ui->bqquestionBrowser->setText(dataBase->bpQues[cursorofBP].HEAD);
+
+     qDebug()<<"3";
 
     bpline[0].setHidden(true);
     bpline[1].setHidden(true);
@@ -270,6 +273,8 @@ void Widget::on_nextBPQuestionButton_clicked()
     bpline[8].setHidden(true);
     bpline[9].setHidden(true);
 
+     qDebug()<<"4";
+
     bplabel[0].setHidden(true);
     bplabel[1].setHidden(true);
     bplabel[2].setHidden(true);
@@ -281,15 +286,17 @@ void Widget::on_nextBPQuestionButton_clicked()
     bplabel[8].setHidden(true);
     bplabel[9].setHidden(true);
 
-
+     qDebug()<<"5";
     //qDebug()<<"答案";
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
         qDebug()<<dataBase->bpQues[cursorofBP].point[i].data();
-
+    qDebug()<<BPinfo[cursorofBP].pointofQ<<"多少点";
     for(int i=0;i<BPinfo[cursorofBP].pointofQ;i++)
     {
         bpline[i].show();
         bplabel[i].show();
     }
+
+     qDebug()<<"7";
 
 }
